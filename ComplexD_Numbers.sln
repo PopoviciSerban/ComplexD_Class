@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexD_Numbers", "ComplexD_Numbers\ComplexD_Numbers.csproj", "{EA25AAE2-2E8B-48E0-B48D-21428ABFB83F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA25AAE2-2E8B-48E0-B48D-21428ABFB83F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA25AAE2-2E8B-48E0-B48D-21428ABFB83F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA25AAE2-2E8B-48E0-B48D-21428ABFB83F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA25AAE2-2E8B-48E0-B48D-21428ABFB83F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
