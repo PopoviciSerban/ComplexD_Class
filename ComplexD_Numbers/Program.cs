@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NumereComplexe
+namespace ComplexD_Numbers
 {
     class Program
     {
         static void Main(string[] args)
         {
+            List<Complex> M = new List<Complex>();
             Complex a = new Complex(3, 2);
             Complex b = new Complex(2, 1);
             Complex c;
@@ -30,9 +31,17 @@ namespace NumereComplexe
             int power = int.Parse(Console.ReadLine());
             c = a ^ power;
             Console.WriteLine("a ^ {0} = {1}", power, c);
-            
+
             a.Trigonometric_PowerUp(power);
             a.Trigonometric_Form();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                Random rand = new Random();
+                M.Add(new Complex(rand.Next(-10, 11), rand.Next(-10, 11)));
+            }
+
+            Console.WriteLine("The minimum distance between the complex number " + a + " and the rest of complex numbers is " + a.Min_Dist(M));
 
             Console.ReadKey();
         }
@@ -63,7 +72,7 @@ namespace NumereComplexe
         public static Complex operator -(Complex c) => new Complex(-c.real, -c.imaginary);
 
         public static Complex operator +(Complex a, Complex b)
-            => new Complex(a.real + b.real, a.imaginary + b.imaginary);
+           => new Complex(a.real + b.real, a.imaginary + b.imaginary);
 
         public static Complex operator -(Complex a, Complex b) => a + (-b);
 
@@ -75,12 +84,11 @@ namespace NumereComplexe
             Complex x = a;
 
             for (int i = 2; i <= b; i++)
-
                 x *= a;
 
             return x;
         }
-        
+
         public void Trigonometric_PowerUp(int b)
         {
             double r = Math.Sqrt(real * real + imaginary * imaginary);
@@ -94,12 +102,23 @@ namespace NumereComplexe
             Console.WriteLine("The trigonometric form of the complex number powered up is {0} * ({1} + i * {2})", r, Math.Cos(b * teta), Math.Sin(b * teta));
         }
 
+        public double Min_Dist(List<Complex> C)
+        {
+            double answer = Math.Sqrt((C[0].real - real) * (C[0].real - real) + (C[0].imaginary - imaginary) * (C[0].imaginary - imaginary));
+
+            for (int i = 1; i < C.Count; i++)
+                if (Math.Sqrt((C[i].real - real) * (C[i].real - real) + (C[i].imaginary - imaginary) * (C[i].imaginary - imaginary)) < answer)
+                    answer = Math.Sqrt((C[i].real - real) * (C[i].real - real) + (C[i].imaginary - imaginary) * (C[i].imaginary - imaginary));
+
+            return answer;
+        }
+
         public void Trigonometric_Form()
         {
             double r = Math.Sqrt(real * real + imaginary * imaginary);
             double teta = Math.Atan(imaginary / real);
 
-            Console.WriteLine("Trigonometric form of the complex number is {0} * ({1} + i * {2})", r, Math.Cos(teta), Math.Sin(teta));
+            Console.WriteLine("The trigonometric form of the complex number is {0} * ({1} + i * {2})", r, Math.Cos(teta), Math.Sin(teta));
         }
 
         public override string ToString() => $"{real} + {imaginary} * i";
