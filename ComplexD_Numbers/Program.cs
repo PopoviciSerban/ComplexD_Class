@@ -10,9 +10,10 @@ namespace ComplexD_Numbers
     {
         static void Main(string[] args)
         {
+            Random rand = new Random();
             List<Complex> M = new List<Complex>();
-            Complex a = new Complex(3, 2);
-            Complex b = new Complex(2, 1);
+            Complex a = new Complex(rand.Next(-10, 11), rand.Next(-10, 11));
+            Complex b = new Complex(rand.Next(-10, 11), rand.Next(-10, 11));
             Complex c;
 
             Console.WriteLine("a = {0}", a);
@@ -32,16 +33,21 @@ namespace ComplexD_Numbers
             c = a ^ power;
             Console.WriteLine("a ^ {0} = {1}", power, c);
 
-            a.Trigonometric_PowerUp(power);
             a.Trigonometric_Form();
+
+            ComplexD myPoint = new ComplexD(rand.Next(-10, 11), rand.Next(-10, 11));
+
+            Console.WriteLine("\nThe random set of complex numbers is:");
 
             for (int i = 1; i <= 10; i++)
             {
-                Random rand = new Random();
                 M.Add(new Complex(rand.Next(-10, 11), rand.Next(-10, 11)));
+                Console.WriteLine("M[{0}] = {1}", i, M[i-1]);
             }
 
-            Console.WriteLine("The minimum distance between the complex number " + a + " and the rest of complex numbers is " + a.Min_Dist(M));
+            Console.WriteLine("\nThe minimum distance between the complex number " + myPoint + " and the random set of complex numbers is " + myPoint.Min_Dist(M));
+
+            myPoint.Trigonometric_PowerUp(power);
 
             Console.ReadKey();
         }
@@ -49,8 +55,8 @@ namespace ComplexD_Numbers
 
     internal class Complex
     {
-        private int real;
-        private int imaginary;
+        public int real;
+        public int imaginary;
 
         public Complex() : this(0)
         {
@@ -89,6 +95,34 @@ namespace ComplexD_Numbers
             return x;
         }
 
+        public void Trigonometric_Form()
+        {
+            double r = Math.Sqrt(real * real + imaginary * imaginary);
+            double teta = Math.Atan(imaginary / real);
+
+            Console.WriteLine("The trigonometric form of the complex number {0} is {1} * ({2} + i * {3})", this, r, Math.Cos(teta), Math.Sin(teta));
+        }
+
+        public override string ToString() => $"{real} + {imaginary} * i";
+    }
+
+    internal class ComplexD : Complex {
+        public ComplexD() : this(0)
+        {
+        }
+
+        public ComplexD(int real_part)
+        {
+            real = real_part;
+            imaginary = 0;
+        }
+
+        public ComplexD(int real_part, int imaginary_part)
+        {
+            real = real_part;
+            imaginary = imaginary_part;
+        }
+
         public void Trigonometric_PowerUp(int b)
         {
             double r = Math.Sqrt(real * real + imaginary * imaginary);
@@ -99,7 +133,7 @@ namespace ComplexD_Numbers
             for (int i = 2; i <= b; i++)
                 r *= aux;
 
-            Console.WriteLine("The trigonometric form of the complex number powered up is {0} * ({1} + i * {2})", r, Math.Cos(b * teta), Math.Sin(b * teta));
+            Console.WriteLine("The trigonometric form of the complex number {0} powered up is {1} * ({2} + i * {3})", this, r, Math.Cos(b * teta), Math.Sin(b * teta));
         }
 
         public double Min_Dist(List<Complex> C)
@@ -112,15 +146,5 @@ namespace ComplexD_Numbers
 
             return answer;
         }
-
-        public void Trigonometric_Form()
-        {
-            double r = Math.Sqrt(real * real + imaginary * imaginary);
-            double teta = Math.Atan(imaginary / real);
-
-            Console.WriteLine("The trigonometric form of the complex number is {0} * ({1} + i * {2})", r, Math.Cos(teta), Math.Sin(teta));
-        }
-
-        public override string ToString() => $"{real} + {imaginary} * i";
     }
 }
